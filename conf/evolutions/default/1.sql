@@ -9,7 +9,6 @@ create table my_user (
   lastname                  varchar(255),
   email                     varchar(255),
   password                  varchar(255),
-  nationality               varchar(255),
   constraint pk_my_user primary key (id))
 ;
 
@@ -20,11 +19,7 @@ create sequence my_user_seq;
 
 # --- !Downs
 
-SET REFERENTIAL_INTEGRITY FALSE;
-
-drop table if exists my_user;
-
-SET REFERENTIAL_INTEGRITY TRUE;
+drop table if exists my_user cascade;
 
 drop sequence if exists my_user_seq;
 
