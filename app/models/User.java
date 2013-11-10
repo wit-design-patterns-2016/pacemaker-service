@@ -19,6 +19,7 @@ public class User extends Model
   public String lastname;
   public String email;
   public String password;
+  public String nationality;
     
   public User()
   {

@@ -9,6 +9,7 @@ create table my_user (
   lastname                  varchar(255),
   email                     varchar(255),
   password                  varchar(255),
+  nationality               varchar(255),
   constraint pk_my_user primary key (id))
 ;
 
