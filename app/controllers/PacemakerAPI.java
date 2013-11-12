@@ -60,4 +60,88 @@ public class PacemakerAPI extends Controller
     }
     return result;
   }
+  
+  public static Result activities (Long userId)
+  {  
+    User p = User.findById(userId);
+    return ok(renderActivity(p.activities));
+  }
+   
+  public static Result createActivity (Long userId)
+  { 
+    User    user      = User.findById(userId);
+    Activity activity = renderActivity(request().body().asJson().toString());  
+    
+    user.activities.add(activity);
+    user.save();
+    
+    return ok(renderActivity(activity));
+  }
+  
+  public static Result activity (Long userId, Long activityId)
+  {  
+    User    user      = User.findById(userId);
+    Activity activity = Activity.findById(activityId);
+    
+    if (activity == null)
+    {
+      return notFound();
+    }
+    else
+    {
+      return user.activities.contains(activity)? ok(renderActivity(activity)): badRequest();
+    }
+  }  
+  
+  public static Result deleteActivity (Long userId, Long activityId)
+  {  
+    User    user      = User.findById(userId);
+    Activity activity = Activity.findById(activityId);
+    if (activity == null)
+    {
+      return notFound();
+    }
+    else
+    {
+      if (user.activities.contains(activity))
+      {
+        user.activities.remove(activity);
+        activity.delete();
+        user.save();
+        return ok();
+      }
+      else
+      {
+        return badRequest();
+      }
+
+    }
+  }  
+  
+  public static Result updateActivity (Long userId, Long activityId)
+  {
+    User    user      = User.findById(userId);
+    Activity activity = Activity.findById(activityId);
+    if (activity == null)
+    {
+      return notFound();
+    }
+    else
+    {
+      if (user.activities.contains(activity))
+      {
+        Activity updatedActivity = renderActivity(request().body().asJson().toString());
+        activity.distance = updatedActivity.distance;
+        activity.location = updatedActivity.location;
+        activity.type     = updatedActivity.type;
+      
+        activity.save();
+        return ok(renderActivity(updatedActivity));
+      }
+      else
+      {
+        return badRequest();
+      }
+    }
+  }  
 }
