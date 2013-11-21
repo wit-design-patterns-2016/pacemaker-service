@@ -4,6 +4,8 @@
 
 # Home page
 GET     /                                          controllers.Application.index()
+GET     /users/adduser                             controllers.Application.addUser()
+POST    /users/submituser                          controllers.Application.submitUser()
 
 GET     /api/users                                 controllers.PacemakerAPI.users()
 DELETE  /api/users                                 controllers.PacemakerAPI.deleteAllUsers()
