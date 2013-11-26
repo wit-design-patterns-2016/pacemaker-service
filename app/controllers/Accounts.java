@@ -1,9 +1,5 @@
 package controllers;
 
-import static play.data.Form.form;
-
-import org.h2.engine.Session;
-
 import models.User;
 import play.*;
 import play.mvc.*;
@@ -23,12 +19,12 @@ public class Accounts extends Controller
 
   public static Result signup()
   {
-    return ok(accounts_signup.render(userForm));
+    return ok(accounts_signup.render());
   }
   
   public static Result login()
   {
-    return ok(accounts_login.render(loginForm));
+    return ok(accounts_login.render());
   }
   
   public static Result logout()
@@ -42,7 +38,7 @@ public class Accounts extends Controller
     Form<User> boundForm = userForm.bindFromRequest();
     if(loginForm.hasErrors()) 
     {
-      return badRequest(accounts_login.render(loginForm));
+      return badRequest(accounts_login.render());
     }
     else
     {
@@ -58,7 +54,7 @@ public class Accounts extends Controller
     Form<User> boundForm = loginForm.bindFromRequest();
     if(loginForm.hasErrors()) 
     {
-      return badRequest(accounts_login.render(loginForm));
+      return badRequest(accounts_login.render());
     } 
     else 
     {
