@@ -14,12 +14,12 @@ public class Dashboard extends Controller
   {
     String email = session().get("email");
     User user = User.findByEmail(email);
-    return ok(dashboard.render(user.activities));
+    return ok(dashboard_main.render(user.activities));
   }
   
   public static Result uploadActivityForm()
   {
-    return ok(uploadactivity.render());
+    return ok(dashboard_uploadactivity.render());
   }  
 
   public static Result submitActivity()

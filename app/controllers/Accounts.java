@@ -18,23 +18,23 @@ public class Accounts extends Controller
   
   public static Result index()
   {
-    return ok(start.render());
+    return ok(welcome_main.render());
   }
 
   public static Result signup()
   {
-    return ok(signup.render(userForm));
+    return ok(accounts_signup.render(userForm));
   }
   
   public static Result login()
   {
-    return ok(login.render(loginForm));
+    return ok(accounts_login.render(loginForm));
   }
   
   public static Result logout()
   {
     session().clear();
-    return ok(start.render());
+    return ok(welcome_main.render());
   }
 
   public static Result register()
@@ -42,14 +42,14 @@ public class Accounts extends Controller
     Form<User> boundForm = userForm.bindFromRequest();
     if(loginForm.hasErrors()) 
     {
-      return badRequest(login.render(loginForm));
+      return badRequest(accounts_login.render(loginForm));
     }
     else
     {
       User user = boundForm.get();
       Logger.info ("User = " + user.toString());
       user.save();
-      return ok(start.render());
+      return ok(welcome_main.render());
     }
   }
 
@@ -58,12 +58,11 @@ public class Accounts extends Controller
     Form<User> boundForm = loginForm.bindFromRequest();
     if(loginForm.hasErrors()) 
     {
-      return badRequest(login.render(loginForm));
+      return badRequest(accounts_login.render(loginForm));
     } 
     else 
     {
        session("email", boundForm.get().email);
-      // return redirect(routes.Home.index());
        return redirect(routes.Dashboard.index());
     }
   }
