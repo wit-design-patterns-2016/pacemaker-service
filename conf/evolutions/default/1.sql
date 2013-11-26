@@ -6,7 +6,7 @@
 create table activity (
   id                        bigint not null,
   user_id                   bigint not null,
-  type                      varchar(255),
+  kind                      varchar(255),
   location                  varchar(255),
   distance                  double,
   constraint pk_activity primary key (id))

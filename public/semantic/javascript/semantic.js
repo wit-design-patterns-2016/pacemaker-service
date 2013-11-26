@@ -1967,7 +1967,7 @@ $.fn.form.settings = {
     },
     email: function(value){
       var
-        emailRegExp = new RegExp("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+        emailRegExp = new RegExp("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", "i")
       ;
       return emailRegExp.test(value);
     },
@@ -4796,7 +4796,7 @@ $.fn.dropdown = function(parameters) {
                 ? module.get.value()
                 : module.get.text()
             ;
-            if(value) {
+            if(value !== undefined) {
               $item
                 .each(function() {
                   var
@@ -5523,7 +5523,6 @@ $.fn.modal = function(parameters) {
             : function(){}
           ;
           if( !module.is.active() ) {
-            module.debug('Showing modal');
             module.cacheSizes();
             module.set.position();
             module.set.type();
@@ -5534,6 +5533,7 @@ $.fn.modal = function(parameters) {
             }
             else {
               if(settings.transition && $.fn.transition !== undefined && $module.transition('is supported')) {
+                module.debug('Showing modal with css animations');
                 $module
                   .transition(settings.transition + ' in', settings.duration, function() {
                     module.set.active();
@@ -5542,6 +5542,7 @@ $.fn.modal = function(parameters) {
                 ;
               }
               else {
+                module.debug('Showing modal with javascript');
                 $module
                   .fadeIn(settings.duration, settings.easing, function() {
                     module.set.active();
@@ -9303,7 +9304,7 @@ $.fn.shape.settings = {
 
 })( jQuery, window , document );
 /*
- * # Semantic - Dropdown
+ * # Semantic - Sidebar
  * http://github.com/jlukic/semantic-ui/
  *
  *
@@ -9815,6 +9816,7 @@ $.fn.sidebar.settings = {
 };
 
 })( jQuery, window , document );
+
 /*
  * # Semantic - Tab
  * http://github.com/jlukic/semantic-ui/
@@ -10649,7 +10651,7 @@ $.fn.transition = function() {
           if(!module.has.direction() && module.can.transition()) {
             module.set.direction();
           }
-          if(!module.has.transitionAvailable) {
+          if( !module.has.transitionAvailable() ) {
             module.restore.conditions();
             module.error(error.noAnimation);
             return false;

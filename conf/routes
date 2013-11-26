@@ -2,10 +2,20 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# Home page
-GET     /                                          controllers.Application.index()
-GET     /users/adduser                             controllers.Application.addUser()
-POST    /users/submituser                          controllers.Application.submitUser()
+# UI
+
+GET     /                                          controllers.Accounts.index()
+GET     /signup                                    controllers.Accounts.signup()
+GET     /login                                     controllers.Accounts.login()
+GET     /logout                                    controllers.Accounts.logout()
+POST    /register                                  controllers.Accounts.register()
+POST    /authenticate                              controllers.Accounts.authenticate()
+
+GET     /dashboard                                 controllers.Dashboard.index()
+GET     /upload                                    controllers.Dashboard.uploadActivityForm()
+POST    /submitactivity                            controllers.Dashboard.submitActivity()
+
+# API
 
 GET     /api/users                                 controllers.PacemakerAPI.users()
 DELETE  /api/users                                 controllers.PacemakerAPI.deleteAllUsers()
