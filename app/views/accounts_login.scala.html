@@ -3,11 +3,11 @@
 @main("Welcome to Pacemaker") {
   @welcome_menu()
   
- <div class="ui raised segment">
+ <section class="ui raised segment">
    <div class="ui grid">
-     <div class="ui six wide column">
+     <aside class="ui six wide column">
       <img src="@routes.Assets.at("images/pacemaker.jpg")" class="ui medium image">
-     </div>
+     </aside>
      <div class="ui ten wide column fluid form">
        <div class="ui stacked segment">
          <form action="/authenticate" method="POST">
@@ -25,6 +25,6 @@
        </div>
      </div>
    </div>
-</div>
+</section>
     
 }
