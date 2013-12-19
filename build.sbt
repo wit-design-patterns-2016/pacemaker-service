@@ -1,4 +1,4 @@
-name := "pacemakerplay"
+name := "pacemaker-service"
 
 version := "1.0-SNAPSHOT"
 
