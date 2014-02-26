@@ -77,24 +77,24 @@ App.LoginController = Ember.ObjectController.extend
 ({	
   actions: 
   {
-	   login: function() 
-	   {
-       var user = this.get('model')
-       var controller = this;
-       $.getJSON("http://localhost:9000/api/users").then(function(users)
-       {
-         var entry = _.find(users, function(obj) { return obj.email == user.email })
-         if (entry.password == user.password)
-         {
-           controller.transitionToRoute("dashboard", entry.id)
-         }
-         else
-         {
-           this.transitionToRoute("start")
-         }
-       });
-     }
-   }
+    login: function() 
+    {
+      var user = this.get('model')
+      var controller = this;
+      $.getJSON("http://localhost:9000/api/users").then(function(users)
+      {
+        var entry = _.find(users, function(obj) { return obj.email == user.email })
+        if (entry.password == user.password)
+        {
+          controller.transitionToRoute("dashboard", entry.id)
+        }
+        else
+        {
+          this.transitionToRoute("start")
+        }
+      });
+    }
+  }
 });
 
 App.DashboardRoute = Ember.Route.extend
@@ -108,7 +108,6 @@ App.DashboardRoute = Ember.Route.extend
          }
 });
 
-
 App.DashboardView = Ember.View.extend
 ({
   templateName : 'dashboard'
@@ -116,16 +115,18 @@ App.DashboardView = Ember.View.extend
 
 App.DashboardController = Ember.ObjectController.extend
 ({  
-  actions: 
-  {
-  }
+
 });
 
 App.UploadRoute = Ember.Route.extend
 ({
-  model:function(params) {
-
-  }
+  model: function(params) 
+         { 
+           return $.getJSON("http://localhost:9000/api/users/" + params.id).then(function(userDetails)
+           {
+            return userDetails
+           });
+         }
 });
 
 App.UploadView = Ember.View.extend
@@ -137,6 +138,27 @@ App.UploadController = Ember.ObjectController.extend
 ({  
   actions: 
   {
+    upload: function(params) 
+    {
+      var controller = this;
+      var model = this.get("model");
+      var activity = {};
+      activity.kind     = model.kind;
+      activity.location = model.location;
+      activity.distance = model.distance;
+        $.ajax({
+            url: "http://localhost:9000/api/users/" + params.id + "/activities",
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(activity),
+            processData: false,
+            dataType: 'json'
+        }).done(function( data ) 
+          {
+            console.log ( "activity loaded: " + JSON.stringify(data) );
+            controller.transitionToRoute("dashboard", model.id)
+          });
+    }
   }
 });
 

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <link rel="stylesheet" type="text/css" href="semantic/css/semantic.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/main.css">
-    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700' rel='stylesheet' type='text/css'>
+    <!--<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700' rel='stylesheet' type='text/css'>-->
   </head>
   <body>
 
@@ -121,6 +121,31 @@
   
   <script type="text/x-handlebars" data-template-name="upload">
     {{partial 'mainnav'}}
+    <section class="ui raised segment">
+      <div class="ui grid">
+        <aside class="ui six wide column">
+          <img src="/assets/images/pacemaker.jpg" class="ui medium image">
+        </aside>
+        <div class="ui ten wide column fluid form">
+          <div class="ui stacked segment">
+            <h3 class="ui header">Enter Activity Details: </h3>
+            <div class="field">
+              <label>Type</label>
+              {{input valueBinding='kind'  type="text"}}
+            </div>
+            <div class="field">
+              <label>Location</label>
+              {{input valueBinding='location'  type="text"}}
+            </div>
+            <div class="field">
+              <label>Distance</label>
+              {{input valueBinding='distance'  type="number"}}
+            </div>           
+            <button class="ui blue button" {{action 'upload' this}}> upload </button>
+          </div>
+        </div>
+      </div>
+    </section>
   </script>
   
   <script type="text/x-handlebars" data-template-name="startnav">
@@ -137,9 +162,9 @@
     <nav class="ui inverted menu">
     <header class="ui header item"> <a href="/"> Donation </a> </header>
       <div class="right menu">
-        {{#link-to 'dashboard' this  activeClass="active" class='item'}} Dashboard{{/link-to}} 
-        {{#link-to 'upload' this    activeClass="active" class='item'}} Upload{{/link-to}}
-        {{#link-to 'start'      activeClass="active" class='item'}} Logout{{/link-to}}
+        {{#link-to 'dashboard' this  activeClass="active" class='item'}} Dashboard {{/link-to}} 
+        {{#link-to 'upload' this     activeClass="active" class='item'}} Upload    {{/link-to}}
+        {{#link-to 'start'           activeClass="active" class='item'}} Logout    {{/link-to}}
       </div>
     </nav>
   </script>
