@@ -107,7 +107,7 @@
               </tr>
             </thead>
             <tbody>
-              {{#each model}}
+              {{#each model.activities}}
                 <tr>
                   <td> {{kind}} </td> <td> {{location}} </td> <td> {{distance}} </td> 
                 </tr>
@@ -119,6 +119,9 @@
     </section>
   </script>
   
+  <script type="text/x-handlebars" data-template-name="upload">
+    {{partial 'mainnav'}}
+  </script>
   
   <script type="text/x-handlebars" data-template-name="startnav">
     <nav class="ui inverted menu">
@@ -134,7 +137,8 @@
     <nav class="ui inverted menu">
     <header class="ui header item"> <a href="/"> Donation </a> </header>
       <div class="right menu">
-        {{#link-to 'dashboard'  activeClass="active" class='item'}} Dashboard{{/link-to}} 
+        {{#link-to 'dashboard' this  activeClass="active" class='item'}} Dashboard{{/link-to}} 
+        {{#link-to 'upload' this    activeClass="active" class='item'}} Upload{{/link-to}}
         {{#link-to 'start'      activeClass="active" class='item'}} Logout{{/link-to}}
       </div>
     </nav>

@@ -9,7 +9,9 @@ import flexjson.JSONSerializer;
 
 public class JsonParser
 {
-  private static JSONSerializer  userSerializer     = new JSONSerializer().exclude("class");
+  private static JSONSerializer  usersSerializer     = new JSONSerializer().exclude("class");
+  private static JSONSerializer  userSerializer      = new JSONSerializer().exclude("class").include("activities");
+  
   private static JSONSerializer  activitySerializer = new JSONSerializer().exclude("class");
 
   public static User renderUser(String json)
@@ -20,6 +22,11 @@ public class JsonParser
   public static String renderUser(Object obj)
   {
     return userSerializer.serialize(obj);
+  }
+  
+  public static String renderUsers(Object obj)
+  {
+    return usersSerializer.serialize(obj);
   }
   
   public static List<User> renderUsers(String json)

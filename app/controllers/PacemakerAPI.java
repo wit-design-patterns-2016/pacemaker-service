@@ -13,7 +13,7 @@ public class PacemakerAPI extends Controller
   public static Result  users()
   {
     List<User> users = User.findAll();
-    return ok(renderUser(users));
+    return ok(renderUsers(users));
   }
 
   public static Result user(Long id)

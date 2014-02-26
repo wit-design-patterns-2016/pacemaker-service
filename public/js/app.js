@@ -6,6 +6,13 @@ var user =
   password  : ""
 };
 
+var activity = 
+{
+  kind: "a",
+  distance  : "b",
+  location    : "x",
+};
+
 App = Ember.Application.create({});
 
 App.Router.map(function()
@@ -13,7 +20,8 @@ App.Router.map(function()
   this.resource('start');
   this.resource('signup');
   this.resource('login'); 
-  this.resource('dashboard',  { path: ':id' });
+  this.resource('upload',    { path: 'upload/:id' }); 
+  this.resource('dashboard', { path: 'dashboard/:id' });
 });
 
 App.StartRoute = Ember.Route.extend
@@ -80,20 +88,24 @@ App.LoginController = Ember.ObjectController.extend
          {
            controller.transitionToRoute("dashboard", entry.id)
          }
+         else
+         {
+           this.transitionToRoute("start")
+         }
        });
-	     this.transitionToRoute("start")
      }
    }
 });
 
 App.DashboardRoute = Ember.Route.extend
 ({
-  model: function(params) {
-    var user = App.loggedInUser;
-    return $.getJSON("http://localhost:9000/api/users/" + params.id + "/activities").then(function(activities){
-      return activities;
-    });
-  }
+  model: function(params) 
+         { 
+           return $.getJSON("http://localhost:9000/api/users/" + params.id).then(function(userDetails)
+           {
+            return userDetails
+           });
+         }
 });
 
 
@@ -103,6 +115,25 @@ App.DashboardView = Ember.View.extend
 });
 
 App.DashboardController = Ember.ObjectController.extend
+({  
+  actions: 
+  {
+  }
+});
+
+App.UploadRoute = Ember.Route.extend
+({
+  model:function(params) {
+
+  }
+});
+
+App.UploadView = Ember.View.extend
+({
+  templateName : 'upload'
+});
+
+App.UploadController = Ember.ObjectController.extend
 ({  
   actions: 
   {
