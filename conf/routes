@@ -27,10 +27,14 @@ PUT    /api/users/:id                              controllers.PacemakerAPI.upda
 
 GET     /api/users/:userId/activities              controllers.PacemakerAPI.activities(userId: Long)
 POST    /api/users/:userId/activities              controllers.PacemakerAPI.createActivity(userId: Long)
+DELETE  /api/users/:userId/activities              controllers.PacemakerAPI.deleteAllActivities(userId: Long)
 
 GET     /api/users/:userId/activities/:activityId  controllers.PacemakerAPI.activity(userId: Long, activityId:Long)
 DELETE  /api/users/:userId/activities/:activityId  controllers.PacemakerAPI.deleteActivity(userId: Long, activityId:Long)
 PUT     /api/users/:userId/activities/:activityId  controllers.PacemakerAPI.updateActivity(userId: Long, activityId:Long)
+
+
+GET     /app              controllers.Assets.at(path="/public", file="pacemaker.html")
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

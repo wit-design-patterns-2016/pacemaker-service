@@ -68,6 +68,22 @@ public class PacemakerAPI extends Controller
     return ok(renderActivity(p.activities));
   }
    
+  public static Result deleteAllActivities(Long userId)
+  {
+    User    user      = User.findById(userId);
+   // List<Activity> activities = user.activities;
+    //user.activities.removeAll(activities);
+
+    for (Activity activity :  user.activities)
+    {
+      activity.delete();
+    }
+    user.activities.clear();
+    user.save();
+    return ok();
+  }
+  
+  
   public static Result createActivity (Long userId)
   { 
     User    user      = User.findById(userId);

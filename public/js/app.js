@@ -8,11 +8,13 @@ var user =
 
 var activity = 
 {
-  kind: "a",
-  distance  : "b",
-  location    : "x",
+  kind: "",
+  distance  : "",
+  location    : "",
 };
 
+var apiUrl = '/api'  
+  
 App = Ember.Application.create({});
 
 App.Router.map(function()
@@ -22,7 +24,15 @@ App.Router.map(function()
   this.resource('login'); 
   this.resource('upload',    { path: 'upload/:id' }); 
   this.resource('dashboard', { path: 'dashboard/:id' });
+  this.resource('combo',     { path: 'combo/:id' });
 });
+
+App.IndexRoute = Ember.Route.extend({
+  redirect: function() {
+      this.transitionTo('start');
+  }
+});
+
 
 App.StartRoute = Ember.Route.extend
 ({
@@ -81,7 +91,7 @@ App.LoginController = Ember.ObjectController.extend
     {
       var user = this.get('model')
       var controller = this;
-      $.getJSON("http://localhost:9000/api/users").then(function(users)
+      $.getJSON(apiUrl + "/users").then(function(users)
       {
         var entry = _.find(users, function(obj) { return obj.email == user.email })
         if (entry.password == user.password)
@@ -101,7 +111,7 @@ App.DashboardRoute = Ember.Route.extend
 ({
   model: function(params) 
          { 
-           return $.getJSON("http://localhost:9000/api/users/" + params.id).then(function(userDetails)
+           return $.getJSON(apiUrl + "/users/" + params.id).then(function(userDetails)
            {
             return userDetails
            });
@@ -122,7 +132,7 @@ App.UploadRoute = Ember.Route.extend
 ({
   model: function(params) 
          { 
-           return $.getJSON("http://localhost:9000/api/users/" + params.id).then(function(userDetails)
+           return $.getJSON(apiUrl + "/users" + params.id).then(function(userDetails)
            {
             return userDetails
            });
@@ -147,7 +157,7 @@ App.UploadController = Ember.ObjectController.extend
       activity.location = model.location;
       activity.distance = model.distance;
         $.ajax({
-            url: "http://localhost:9000/api/users/" + params.id + "/activities",
+            url: apiUrl + "/users/" + params.id + "/activities",
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(activity),
@@ -161,4 +171,66 @@ App.UploadController = Ember.ObjectController.extend
     }
   }
 });
+
+
+App.ComboRoute = Ember.Route.extend
+({
+  model: function(params) 
+         { 
+           return $.getJSON(apiUrl + "/users/" + params.id).then(function(userDetails)
+           {
+            return userDetails
+           });
+         }
+});
+
+App.ComboView = Ember.View.extend
+({
+  templateName : 'combo'
+});
+
+App.ComboController = Ember.ObjectController.extend
+({  
+  actions: 
+  {
+    upload: function(params) 
+    {
+      var controller = this;
+      var model = this.get("model");
+      var activity = {};
+      activity.kind     = model.kind;
+      activity.location = model.location;
+      activity.distance = model.distance;
+        $.ajax({
+            url: apiUrl + "/users/" + params.id + "/activities",
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(activity),
+            processData: false,
+            dataType: 'json'
+        }).done(function( data ) 
+          {
+            console.log ( "activity loaded: " + JSON.stringify(data) );
+            model.activities.pushObject(activity);
+          });
+    },
+
+    clear: function(params)  
+    {  
+      console.log ('remove');
+      
+      $.ajax({
+        url: apiUrl + "/users/" + params.id + "/activities",
+        type: 'DELETE',
+        contentType: 'application/json',
+        data: JSON.stringify(activity),
+        processData: false,
+        dataType: 'json'
+      });      
+      var model = this.get("model");
+      model.activities.clear();
+    }
+  }
+});
+
 

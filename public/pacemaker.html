@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <title>Pacemaker Ember</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="semantic/css/semantic.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/main.css">
+    <link rel="stylesheet" type="text/css" href="assets/semantic/css/semantic.css">
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/main.css">
     <!--<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700' rel='stylesheet' type='text/css'>-->
   </head>
   <body>
@@ -92,29 +92,13 @@
   <script type="text/x-handlebars" data-template-name="dashboard">
     {{partial 'mainnav'}}
     <section class="ui raised segment">
-      <div class="ui grid">
-        <aside class="six wide column">
+      <div class="ui two column grid">
+        <aside class="column">
           <img src="/assets/images/pacemaker.jpg" class="ui medium image">
         </aside>
-        <article class="eight wide column">
-          <h3> <class="ui header"> Activities </h3>
-          <table class="ui celled table segment">
-            <thead>
-              <tr>
-                <th>Type</th>
-                <th>Location</th>
-                <th>Distance</th>
-              </tr>
-            </thead>
-            <tbody>
-              {{#each model.activities}}
-                <tr>
-                  <td> {{kind}} </td> <td> {{location}} </td> <td> {{distance}} </td> 
-                </tr>
-              {{/each}}
-            </tbody>
-          </table>
-        </article>
+        <section class="column">
+         {{partial 'activities-list'}}
+        </section>
       </div>
     </section>
   </script>
@@ -127,24 +111,67 @@
           <img src="/assets/images/pacemaker.jpg" class="ui medium image">
         </aside>
         <div class="ui ten wide column fluid form">
-          <div class="ui stacked segment">
-            <h3 class="ui header">Enter Activity Details: </h3>
-            <div class="field">
-              <label>Type</label>
-              {{input valueBinding='kind'  type="text"}}
-            </div>
-            <div class="field">
-              <label>Location</label>
-              {{input valueBinding='location'  type="text"}}
-            </div>
-            <div class="field">
-              <label>Distance</label>
-              {{input valueBinding='distance'  type="number"}}
-            </div>           
-            <button class="ui blue button" {{action 'upload' this}}> upload </button>
+          {{partial 'upload-activity'}}
+        </div>
+      </div>
+    </section>
+  </script>
+  
+  <script type="text/x-handlebars" data-template-name="combo">
+    {{partial 'mainnav'}}
+    <section class="ui segment">
+      <div class="ui two column grid">
+        <div class="ui row">
+          <div class="ui column">
+            {{partial 'activities-list'}}
+          </div>
+          <div class="ui column">
+            {{partial 'upload-activity'}}
           </div>
         </div>
       </div>
+    </section>
+  </script>
+  
+  <script type="text/x-handlebars" data-template-name="upload-activity">
+   <section class="ui stacked form segment">
+     <h3 class="ui header">Enter Activity Details: </h3>
+     <div class="field">
+       <label>Type</label>
+       {{input valueBinding='kind'  type="text"}}
+     </div>
+     <div class="field">
+       <label>Location</label>
+       {{input valueBinding='location'  type="text"}}
+     </div>
+     <div class="field">
+       <label>Distance</label>
+       {{input valueBinding='distance'  type="number"}}
+     </div>           
+     <button class="ui blue button" {{action 'upload' this}}> upload </button>
+     <button class="ui red button" {{action 'clear' this}}> clear all </button>
+   </section>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="activities-list">
+    <section class="ui segment">
+      <h3 class="ui header"> Activities </h3>
+      <table class="ui celled table segment">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Location</th>
+            <th>Distance</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each model.activities}}
+            <tr>
+              <td> {{kind}} </td> <td> {{location}} </td> <td> {{distance}} </td> 
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
     </section>
   </script>
   
@@ -164,20 +191,21 @@
       <div class="right menu">
         {{#link-to 'dashboard' this  activeClass="active" class='item'}} Dashboard {{/link-to}} 
         {{#link-to 'upload' this     activeClass="active" class='item'}} Upload    {{/link-to}}
+        {{#link-to 'combo'  this     activeClass="active" class='item'}} Combo    {{/link-to}}
         {{#link-to 'start'           activeClass="active" class='item'}} Logout    {{/link-to}}
       </div>
     </nav>
   </script>
   
       
-  <script src="js/libs/jquery-1.10.2.js"></script>
-  <script src="js/libs/handlebars-1.1.2.js"></script>
-  <script src="js/libs/ember-1.4.0.js"></script>
-  <script src="js/libs/underscore-min.js"></script>
-  <script src="js/app.js"></script>
+  <script src="assets/js/libs/jquery-1.10.2.js"></script>
+  <script src="assets/js/libs/handlebars-1.1.2.js"></script>
+  <script src="assets/js/libs/ember-1.4.0.js"></script>
+  <script src="assets/js/libs/underscore-min.js"></script>
+  <script src="assets/js/app.js"></script>
   
-  <script src="semantic/javascript/semantic.min.js"></script>
-  <script src="javascripts/main.js"></script> 
+  <script src="assets/semantic/javascript/semantic.min.js"></script>
+  <script src="assets/javascripts/main.js"></script> 
 
 </body>
 </html>
