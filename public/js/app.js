@@ -156,18 +156,11 @@ App.UploadController = Ember.ObjectController.extend
       activity.kind     = model.kind;
       activity.location = model.location;
       activity.distance = model.distance;
-        $.ajax({
-            url: apiUrl + "/users/" + params.id + "/activities",
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(activity),
-            processData: false,
-            dataType: 'json'
-        }).done(function( data ) 
-          {
-            console.log ( "activity loaded: " + JSON.stringify(data) );
-            controller.transitionToRoute("dashboard", model.id)
-          });
+      apiPost(apiUrl + "/users/" + params.id + "/activities", activity, function done(data)
+      {
+        console.log ( "activity loaded: " + JSON.stringify(data) );
+        controller.transitionToRoute("dashboard", model.id)
+      });
     }
   }
 });
@@ -201,35 +194,28 @@ App.ComboController = Ember.ObjectController.extend
       activity.kind     = model.kind;
       activity.location = model.location;
       activity.distance = model.distance;
-        $.ajax({
-            url: apiUrl + "/users/" + params.id + "/activities",
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(activity),
-            processData: false,
-            dataType: 'json'
-        }).done(function( data ) 
-          {
-            console.log ( "activity loaded: " + JSON.stringify(data) );
-            model.activities.pushObject(activity);
-          });
+      apiPost(apiUrl + "/users/" + params.id + "/activities", activity, function done(data)
+      {
+        console.log ( "activity loaded: " + JSON.stringify(data) );
+        model.activities.pushObject(activity);
+      });
     },
 
     clear: function(params)  
     {  
-      console.log ('remove');
-      
-      $.ajax({
-        url: apiUrl + "/users/" + params.id + "/activities",
-        type: 'DELETE',
-        contentType: 'application/json',
-        data: JSON.stringify(activity),
-        processData: false,
-        dataType: 'json'
-      });      
+      apiDelete(apiUrl + "/users/" + params.id + "/activities")    
       var model = this.get("model");
       model.activities.clear();
-    }
+    },
+    
+    remove: function(params)  
+    { 
+      var model = this.get("model");
+      apiDelete(apiUrl + "/users/" + model.id + "/activities/" + params.id)      
+      var entry = _.find(model.activities, function(obj) { return obj.id == params.id })
+      model.activities.removeObject(entry);
+    }   
+    
   }
 });
 

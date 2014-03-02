@@ -149,7 +149,7 @@
        {{input valueBinding='distance'  type="number"}}
      </div>           
      <button class="ui blue button" {{action 'upload' this}}> upload </button>
-     <button class="ui red button" {{action 'clear' this}}> clear all </button>
+     <button class="ui red button"  {{action 'clear' this}}>  clear all </button>
    </section>
   </script>
 
@@ -162,12 +162,15 @@
             <th>Type</th>
             <th>Location</th>
             <th>Distance</th>
+            <th> </th>
           </tr>
         </thead>
         <tbody>
           {{#each model.activities}}
             <tr>
               <td> {{kind}} </td> <td> {{location}} </td> <td> {{distance}} </td> 
+             <td>   <button class="ui icon button" {{action 'remove' this}}> 
+                 <i class="remove icon"></i> </button></td>
             </tr>
           {{/each}}
         </tbody>
@@ -202,6 +205,7 @@
   <script src="assets/js/libs/handlebars-1.1.2.js"></script>
   <script src="assets/js/libs/ember-1.4.0.js"></script>
   <script src="assets/js/libs/underscore-min.js"></script>
+  <script src="assets/js/utils.js"></script>
   <script src="assets/js/app.js"></script>
   
   <script src="assets/semantic/javascript/semantic.min.js"></script>
