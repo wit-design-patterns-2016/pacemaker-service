@@ -19,7 +19,7 @@ App.LoginController = Ember.Controller.extend
         {
           localStorage['currentUser'] = entry.id;
           App.set('currentUser', entry.id);
-          controller.transitionToRoute("dashboard", entry.id)
+          controller.transitionToRoute("dashboard")
         }
       });
     }

@@ -11,11 +11,22 @@
   <body>
 
   <script type="text/x-handlebars" data-template-name="application">
+    <nav class="ui inverted menu">
+    <header class="ui header item"> <a href="/"> Pacemakern </a> </header>
+      <div class="right menu">
+        {{#if userSignedIn}}
+          {{#link-to 'dashboard'   activeClass="active" class='item'}} Dashboard {{/link-to}} 
+          <a class="ui item" href="#" {{action 'signout'}}> Logout </a>
+        {{else}}
+          {{#link-to 'signup'  activeClass="active" class='item'}}Signup{{/link-to}} 
+          {{#link-to 'login'   activeClass="active" class='item'}}Login{{/link-to}}
+        {{/if}}
+      </div>
+    </nav>
     {{outlet}}
   </script>
 
   <script type="text/x-handlebars" data-template-name="signup">
-    {{partial 'startnav'}}
     <section class="ui segment">
       <div class="ui grid">
         <div class="ui ten wide column">
@@ -50,7 +61,6 @@
   </script>
 
   <script type="text/x-handlebars" data-template-name="login">
-    {{partial 'startnav'}}
     <section class="ui  segment">
       <div class="ui grid">
         <aside class="ui six wide column">
@@ -77,7 +87,6 @@
   </script>
   
   <script type="text/x-handlebars" data-template-name="start">
-    {{partial 'startnav'}}
     <section class="ui segment">
       <div class="ui grid">
         <aside class="six wide column">
@@ -92,35 +101,6 @@
   </script>
   
   <script type="text/x-handlebars" data-template-name="dashboard">
-    {{partial 'mainnav'}}
-    <section class="ui raised segment">
-      <div class="ui two column grid">
-        <aside class="column">
-          <img src="/assets/images/pacemaker.jpg" class="ui medium image">
-        </aside>
-        <section class="column">
-         {{partial 'activities-list'}}
-        </section>
-      </div>
-    </section>
-  </script>
-  
-  <script type="text/x-handlebars" data-template-name="upload">
-    {{partial 'mainnav'}}
-    <section class="ui raised segment">
-      <div class="ui grid">
-        <aside class="ui six wide column">
-          <img src="/assets/images/pacemaker.jpg" class="ui medium image">
-        </aside>
-        <div class="ui ten wide column fluid form">
-          {{partial 'upload-activity'}}
-        </div>
-      </div>
-    </section>
-  </script>
-  
-  <script type="text/x-handlebars" data-template-name="combo">
-    {{partial 'mainnav'}}
     <section class="ui segment">
       <div class="ui two column grid">
         <div class="ui row">
@@ -182,46 +162,22 @@
     </section>
   </script>
   
-  <script type="text/x-handlebars" data-template-name="startnav">
-    <nav class="ui inverted menu">
-      <header class="ui header item"> <a href="/"> Donation </a> </header>
-      <div class="right menu">
-        {{#link-to 'signup'  activeClass="active" class='item'}}Signup{{/link-to}} 
-        {{#link-to 'login'   activeClass="active" class='item'}}Login{{/link-to}}
-      </div>
-    </nav>
-  </script>
-    
-  <script type="text/x-handlebars" data-template-name="mainnav">
-    <nav class="ui inverted menu">
-    <header class="ui header item"> <a href="/"> Donation </a> </header>
-      <div class="right menu">
-        {{#link-to 'dashboard' this  activeClass="active" class='item'}} Dashboard {{/link-to}} 
-        {{#link-to 'upload' this     activeClass="active" class='item'}} Upload    {{/link-to}}
-        {{#link-to 'combo'  this     activeClass="active" class='item'}} Combo    {{/link-to}}
-        {{#link-to 'start'           activeClass="active" class='item'}} Logout    {{/link-to}}
-      </div>
-    </nav>
-  </script>
-  
   <script src="assets/js/libs/jquery-1.10.2.js"></script>
   <script src="assets/js/libs/handlebars-1.1.2.js"></script>
   <script src="assets/js/libs/ember-1.4.0.js"></script>
+  <script src="http://builds.emberjs.com/beta/ember-data.js"></script>
   <script src="assets/js/libs/underscore-min.js"></script>
   <script src="assets/js/utils.js"></script>
   
   <script src="assets/js/app.js"></script>
   <script src="assets/js/routes/application_routes.js"></script>
   <script src="assets/js/routes/dashboard_routes.js"></script>
-  <script src="assets/js/routes/combo_routes.js"></script>
-  <script src="assets/js/routes/upload_routes.js"></script>
 
+  <script src="assets/js/models/user_model.js"></script> 
   
   <script src="assets/js/controllers/application_controller.js"></script>          
   <script src="assets/js/controllers/signup_controller.js"></script>  
   <script src="assets/js/controllers/login_controller.js"></script>    
-  <script src="assets/js/controllers/upload_controller.js"></script>  
-  <script src="assets/js/controllers/combo_controller.js"></script> 
   <script src="assets/js/controllers/dashboard_controller.js"></script> 
   
   <script src="assets/js/views/dashboard_view.js"></script> 
