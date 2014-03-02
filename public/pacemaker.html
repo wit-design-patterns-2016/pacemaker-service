@@ -58,16 +58,18 @@
         </aside>
         <div class="ui ten wide column fluid form">
           <div class="ui stacked segment">
-              <h3 class="ui header">Log-in</h3>
+            <h3 class="ui header">Log-in</h3>
+            <form {{action 'login' on="submit"}}>
               <div class="field">
-                <label>Email</label>
-                {{input valueBinding='email'  type="text"}}
+                <label>Email</label>     
+                {{input id="email" value=email placeholder="Enter your email address"}}
               </div>
               <div class="field">
-                <label>Password</label>
-                {{input valueBinding='password'  type="password"}}
+                <label>Password</label>     
+                {{input id="password" value=password type="password" placeholder="Enter your password"}}
               </div>
-              <button class="ui blue button" {{action 'login'}}> Login</button>
+              <button class="ui blue button" type="submit"> Sign in </button>
+            </form>
           </div>
         </div>
       </div>
@@ -136,20 +138,22 @@
   <script type="text/x-handlebars" data-template-name="upload-activity">
    <section class="ui stacked form segment">
      <h3 class="ui header">Enter Activity Details: </h3>
-     <div class="field">
-       <label>Type</label>
-       {{input valueBinding='kind'  type="text"}}
-     </div>
-     <div class="field">
-       <label>Location</label>
-       {{input valueBinding='location'  type="text"}}
-     </div>
-     <div class="field">
-       <label>Distance</label>
-       {{input valueBinding='distance'  type="number"}}
-     </div>           
-     <button class="ui blue button" {{action 'upload' this}}> upload </button>
-     <button class="ui red button"  {{action 'clear' this}}>  clear all </button>
+     <form {{action 'upload' this on="submit"}}>
+       <div class="field">
+         <label>Type</label>
+         {{input valueBinding='kind'  type="text"}}
+       </div>
+       <div class="field">
+         <label>Location</label>
+         {{input valueBinding='location'  type="text"}}
+       </div>
+       <div class="field">
+         <label>Distance</label>
+         {{input valueBinding='distance'  type="number"}}
+       </div>           
+       <button class="ui blue button"> upload </button>
+       <button class="ui red button"  {{action 'clearall' this}}>  clear all </button>
+     </form>
    </section>
   </script>
 
@@ -200,14 +204,28 @@
     </nav>
   </script>
   
-      
   <script src="assets/js/libs/jquery-1.10.2.js"></script>
   <script src="assets/js/libs/handlebars-1.1.2.js"></script>
   <script src="assets/js/libs/ember-1.4.0.js"></script>
   <script src="assets/js/libs/underscore-min.js"></script>
   <script src="assets/js/utils.js"></script>
-  <script src="assets/js/app.js"></script>
   
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/routes/application_routes.js"></script>
+  <script src="assets/js/routes/dashboard_routes.js"></script>
+  <script src="assets/js/routes/combo_routes.js"></script>
+  <script src="assets/js/routes/upload_routes.js"></script>
+
+  
+  <script src="assets/js/controllers/application_controller.js"></script>          
+  <script src="assets/js/controllers/signup_controller.js"></script>  
+  <script src="assets/js/controllers/login_controller.js"></script>    
+  <script src="assets/js/controllers/upload_controller.js"></script>  
+  <script src="assets/js/controllers/combo_controller.js"></script> 
+  <script src="assets/js/controllers/dashboard_controller.js"></script> 
+  
+  <script src="assets/js/views/dashboard_view.js"></script> 
+        
   <script src="assets/semantic/javascript/semantic.min.js"></script>
   <script src="assets/javascripts/main.js"></script> 
 
