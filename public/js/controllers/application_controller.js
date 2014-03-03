@@ -1,5 +1,11 @@
 App.ApplicationController = Ember.Controller.extend(
 {
+  /*init: function() 
+  {
+    this._super();
+    comsole.log('init called');
+  },*/
+  
   signedInUser: function() 
   {
     return this.store.find('user', localStorage['currentUser']);

@@ -12,7 +12,7 @@
 
   <script type="text/x-handlebars" data-template-name="application">
     <nav class="ui inverted menu">
-    <header class="ui header item"> <a href="/"> Pacemakern </a> </header>
+    <header class="ui header item"> <a href="/"> Pacemaker Ember </a> </header>
       <div class="right menu">
         {{#if userSignedIn}}
           {{#link-to 'dashboard'   activeClass="active" class='item'}} Dashboard {{/link-to}} 
@@ -165,16 +165,19 @@
   <script src="assets/js/libs/jquery-1.10.2.js"></script>
   <script src="assets/js/libs/handlebars-1.1.2.js"></script>
   <script src="assets/js/libs/ember-1.4.0.js"></script>
+<!--  
   <script src="http://builds.emberjs.com/beta/ember-data.js"></script>
+-->
+
   <script src="assets/js/libs/underscore-min.js"></script>
   <script src="assets/js/utils.js"></script>
   
   <script src="assets/js/app.js"></script>
+  
+  <script src="assets/js/routes/login_routes.js"></script>
   <script src="assets/js/routes/application_routes.js"></script>
   <script src="assets/js/routes/dashboard_routes.js"></script>
-
-  <script src="assets/js/models/user_model.js"></script> 
-  
+    
   <script src="assets/js/controllers/application_controller.js"></script>          
   <script src="assets/js/controllers/signup_controller.js"></script>  
   <script src="assets/js/controllers/login_controller.js"></script>    

@@ -26,9 +26,10 @@ public class JsonParser
   
   public static String renderUsers(Object obj)
   {
-    return usersSerializer.serialize(obj);
+  //  return "{ \"users\":" + usersSerializer.serialize(obj) + "}";
+    return  usersSerializer.serialize(obj);
   }
-  
+   
   public static List<User> renderUsers(String json)
   {
     return new JSONDeserializer<ArrayList<User>>().use("values", User.class).deserialize(json);
